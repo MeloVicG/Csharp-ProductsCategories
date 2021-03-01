@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SingleCategory</title>
+</head>
+@* ViewBag.Category *@
+@* @model Association *@
+<body>
+    <h1>Category: @ViewBag.ProductWithCategory.CategoryName</h1>
+    <div>
+
+        <div>
+            <h4>Products</h4>
+                @foreach(var prod in ViewBag.ProductWithCategory.Products)
+                {
+                    <li>@prod.Product.ProductName</li>
+                }
+        </div>
+@model Association
+        <form action="/add-product" method="post">
+            <select asp-for="ProductId">
+                <option selected disabled>Select Product</option>
+                @foreach(var cat in ViewBag.AllProducts)
+                {
+                    <option value="@cat.ProductId">@cat.ProductName</option>
+                }
+            </select>
+            @* to update *@
+            <input type="hidden" asp-for="CategoryId" value=@ViewBag.ProductWithCategory.CategoryId />
+
+            <button class="btn btn-primary">Submit</button>
+        </form>
+        
+    </div>
+
+
+</body>
+</html>
